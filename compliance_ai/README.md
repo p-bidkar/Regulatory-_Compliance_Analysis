@@ -51,11 +51,26 @@ pip install -r requirements.txt
 # Copy environment template
 cp .env.example .env
 
-# Edit .env and add your API key
-# ANTHROPIC_API_KEY=your_key_here
+# Edit .env and configure your preferred LLM provider:
+
+# Option A: NVIDIA API (recommended for cost-effective Llama 3.1, Mistral)
+LLM_PROVIDER=nvidia
+NVIDIA_API_KEY=nvapi-your_key_here
+MODEL_NAME=meta/llama-3.1-405b-instruct
+EMBEDDING_MODEL=nvidia/nv-embedqa-e5-v5
+
+# Option B: Anthropic API (Claude models)
+LLM_PROVIDER=anthropic
+ANTHROPIC_API_KEY=your_key_here
+MODEL_NAME=claude-3-5-sonnet-20241022
+
+# Option C: OpenAI API
+LLM_PROVIDER=openai
+OPENAI_API_KEY=your_key_here
+MODEL_NAME=gpt-4o
 
 # For testing without API key, set:
-# MOCK_MODE=true
+MOCK_MODE=true
 ```
 
 ### 3. Run the Streamlit UI
@@ -131,27 +146,43 @@ This runs the complete pipeline on test data and outputs:
 
 ### Key Design Decisions
 
-1. **Semantic Chunking**: Documents are split by section headers first, then into overlapping chunks for better context preservation.
+1. **Multi-Provider LLM Support**: Unified interface supporting NVIDIA (Llama 3.1, Mistral), Anthropic (Claude), and OpenAI (GPT-4) via a single configuration switch.
 
-2. **Hybrid Retrieval**: Combines BM25 keyword search with TF-IDF semantic similarity, then re-ranks with weighted scoring.
+2. **Semantic Chunking**: Documents are split by section headers first, then into overlapping chunks for better context preservation.
 
-3. **Strict Citation Grounding**: Every recommendation must cite specific chunk IDs with verbatim quotes (≤15 words). Citations are programmatically validated.
+3. **Hybrid Retrieval**: Combines BM25 keyword search with TF-IDF semantic similarity, then re-ranks with weighted scoring.
 
-4. **Mock Mode Fallback**: When no API key is provided, the system generates heuristic-based mock responses for testing.
+4. **Strict Citation Grounding**: Every recommendation must cite specific chunk IDs with verbatim quotes (≤15 words). Citations are programmatically validated.
 
-5. **Pydantic Validation**: All LLM outputs are validated against strict schemas before being used downstream.
+5. **Mock Mode Fallback**: When no API key is provided, the system generates heuristic-based mock responses for testing.
+
+6. **Pydantic Validation**: All LLM outputs are validated against strict schemas before being used downstream.
 
 ## Configuration Options
 
 | Variable | Default | Description |
 |----------|---------|-------------|
-| `ANTHROPIC_API_KEY` | - | Claude API key |
-| `MODEL_NAME` | `claude-3-5-sonnet-20241022` | LLM model |
-| `EMBEDDING_MODEL` | `text-embedding-3-large` | Embedding model |
+| `LLM_PROVIDER` | `anthropic` | Provider: "nvidia", "anthropic", or "openai" |
+| `NVIDIA_API_KEY` | - | NVIDIA API key (required if LLM_PROVIDER=nvidia) |
+| `ANTHROPIC_API_KEY` | - | Anthropic API key (required if LLM_PROVIDER=anthropic) |
+| `OPENAI_API_KEY` | - | OpenAI API key (required if LLM_PROVIDER=openai) |
+| `MODEL_NAME` | varies | Model name (provider-specific defaults) |
+| `EMBEDDING_MODEL` | varies | Embedding model (provider-specific) |
 | `CHUNK_SIZE` | `512` | Characters per chunk |
 | `CHUNK_OVERLAP` | `50` | Overlap between chunks |
 | `TOP_K_RETRIEVAL` | `5` | Policy chunks to retrieve |
-| `MOCK_MODE` | `false` | Enable mock responses |
+| `MOCK_MODE` | `false` | Enable mock responses for testing |
+
+### NVIDIA-Specific Models
+
+When using `LLM_PROVIDER=nvidia`, recommended models include:
+
+| Model | Use Case | MODEL_NAME value |
+|-------|----------|------------------|
+| Llama 3.1 405B | Best quality, complex reasoning | `meta/llama-3.1-405b-instruct` |
+| Llama 3.1 70B | Good balance of speed/quality | `meta/llama-3.1-70b-instruct` |
+| Mistral Large 2 | Strong instruction following | `mistralai/mistral-large-2-instruct` |
+| NV-EmbedQA-E5 | High-quality embeddings | `nvidia/nv-embedqa-e5-v5` |
 
 ## Evaluation Metrics
 
@@ -212,7 +243,11 @@ The `eval.py` script computes:
 - **Orchestration**: LangGraph (stateful workflows)
 - **Document Processing**: LlamaIndex (chunking, indexing)
 - **Vector Store**: ChromaDB (in-memory/persistent)
-- **LLM**: Anthropic Claude API (with mock fallback)
+- **LLM Providers**: 
+  - NVIDIA API (Llama 3.1, Mistral Large)
+  - Anthropic Claude API
+  - OpenAI API (GPT-4)
+- **Unified Client**: Custom `src/llm_client.py` with automatic provider switching
 - **UI**: Streamlit
 - **Evaluation**: Custom Python metrics
 
