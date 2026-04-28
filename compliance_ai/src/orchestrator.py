@@ -9,7 +9,7 @@ from typing_extensions import NotRequired
 from langgraph.graph import StateGraph, END
 from langgraph.graph.message import add_messages
 
-from config import MOCK_MODE
+from config import MOCK_MODE, LLM_PROVIDER
 from src.utils import logger, LatencyTimer, format_output_for_display
 from src.agent1_change_detection import ChangeDetector, ChangeDetectionResult
 from src.agent2_rag_retrieval import PolicyRetrieverAgent, RetrievalResult, create_policy_retriever

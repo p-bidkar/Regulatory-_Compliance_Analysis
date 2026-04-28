@@ -8,8 +8,9 @@ import re
 from typing import Dict, List, Any, Optional, Tuple
 from pydantic import BaseModel, Field
 
-from config import MODEL_NAME, ANTHROPIC_API_KEY, MOCK_MODE
+from config import MODEL_NAME, ANTHROPIC_API_KEY, MOCK_MODE, LLM_PROVIDER
 from src.utils import parse_json_safely, logger
+from src.llm_client import get_llm_client
 
 
 class ChangedSection(BaseModel):
@@ -46,14 +47,7 @@ class ChangeDetector:
     def __init__(self, model_name: str = MODEL_NAME, api_key: str = ANTHROPIC_API_KEY):
         self.model_name = model_name
         self.api_key = api_key
-        self.client = None
-        
-        if not MOCK_MODE and api_key:
-            try:
-                import anthropic
-                self.client = anthropic.Anthropic(api_key=api_key)
-            except ImportError:
-                logger.warning("anthropic package not installed, using mock mode")
+        self.llm_client = get_llm_client()
     
     def _chunk_by_section(self, text: str) -> Dict[str, str]:
         """Split document into sections for comparison."""
@@ -143,9 +137,6 @@ class ChangeDetector:
     ) -> List[ChangedSection]:
         """Use LLM to analyze and summarize substantive changes."""
         
-        if MOCK_MODE or not self.client:
-            return self._mock_change_analysis(changed_sections)
-        
         # Build prompt for LLM
         sections_context = ""
         for i, (section_id, old_text, new_text, similarity) in enumerate(changed_sections[:10]):
@@ -184,15 +175,7 @@ Return your analysis as a JSON array with this exact structure:
 Only include genuinely substantive changes. Return an empty array if no substantive changes found."""
 
         try:
-            response = self.client.messages.create(
-                model=self.model_name,
-                max_tokens=2000,
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            
-            response_text = response.content[0].text
+            response_text = self.llm_client.generate(prompt)
             
             # Parse JSON response
             parsed_data, error = parse_json_safely(response_text)

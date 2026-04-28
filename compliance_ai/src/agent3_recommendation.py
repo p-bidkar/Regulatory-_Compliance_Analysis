@@ -7,9 +7,10 @@ import json
 from typing import Dict, List, Any, Optional
 from pydantic import BaseModel, Field
 
-from config import MODEL_NAME, ANTHROPIC_API_KEY, MOCK_MODE
+from config import MODEL_NAME, ANTHROPIC_API_KEY, MOCK_MODE, LLM_PROVIDER
 from src.utils import parse_json_safely, logger, validate_citation
 from src.agent2_rag_retrieval import RetrievedPolicyChunk
+from src.llm_client import get_llm_client
 
 
 class Citation(BaseModel):
@@ -55,14 +56,7 @@ class RecommendationGenerator:
     def __init__(self, model_name: str = MODEL_NAME, api_key: str = ANTHROPIC_API_KEY):
         self.model_name = model_name
         self.api_key = api_key
-        self.client = None
-        
-        if not MOCK_MODE and api_key:
-            try:
-                import anthropic
-                self.client = anthropic.Anthropic(api_key=api_key)
-            except ImportError:
-                logger.warning("anthropic package not installed, using mock mode")
+        self.llm_client = get_llm_client()
     
     def _build_policy_context(self, retrieved_chunks: List[RetrievedPolicyChunk]) -> str:
         """Build formatted context from retrieved policy chunks."""
@@ -104,9 +98,6 @@ Reason: {change.get('reason', '')}
         retrieved_chunks: List[RetrievedPolicyChunk]
     ) -> List[Recommendation]:
         """Generate recommendations using LLM with strict citation requirements."""
-        
-        if MOCK_MODE or not self.client:
-            return self._generate_mock_recommendations(changes, retrieved_chunks)
         
         policy_context = self._build_policy_context(retrieved_chunks)
         changes_context = self._build_changes_context(changes)
@@ -153,15 +144,7 @@ Guidelines for risk assessment:
 Return ONLY the JSON array, no other text."""
 
         try:
-            response = self.client.messages.create(
-                model=self.model_name,
-                max_tokens=2500,
-                messages=[
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            
-            response_text = response.content[0].text
+            response_text = self.llm_client.generate(prompt)
             
             # Parse JSON response
             parsed_data, error = parse_json_safely(response_text)
