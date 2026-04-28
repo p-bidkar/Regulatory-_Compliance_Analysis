@@ -1,0 +1,141 @@
+"""
+Sample internal policy document for MVP testing.
+Contains company policies that may be affected by regulatory changes.
+"""
+
+COMPANY_POLICIES = """
+POLICY DOCUMENT: FINANCIAL COMPLIANCE FRAMEWORK
+Effective Date: January 1, 2024
+Version: 3.2
+
+============================================================
+POLICY SECTION CP-001: CAPITAL ADEQUACY MANAGEMENT
+============================================================
+
+CP-001.1 Purpose
+This policy establishes the framework for maintaining adequate capital levels in compliance with federal regulations.
+
+CP-001.2 Capital Ratio Targets
+The institution shall maintain a Tier 1 capital ratio of at least 6.5% to provide a buffer above regulatory minimums.
+The Asset-Liability Committee (ALCO) shall review capital ratios monthly and report to the Board quarterly.
+
+CP-001.3 Capital Planning
+Annual capital plans must be submitted to the Board for approval by December 1st each year.
+Capital plans must include stress scenarios and contingency measures for capital shortfalls.
+
+CP-001.4 Reporting Requirements
+The Finance Department shall prepare quarterly capital adequacy reports within 40 days of quarter end.
+Reports must be reviewed by Internal Audit before submission to regulators.
+
+============================================================
+POLICY SECTION CP-002: LIQUIDITY RISK MANAGEMENT
+============================================================
+
+CP-002.1 Liquidity Governance
+The Treasury Department is responsible for daily liquidity management and monitoring.
+The Chief Financial Officer has overall accountability for liquidity risk oversight.
+
+CP-002.2 LCR Compliance
+The institution shall maintain an LCR of at least 105% to exceed the regulatory minimum of 100%.
+HQLA must be held at the parent company and major subsidiaries to ensure accessibility.
+
+CP-002.3 NSFR Monitoring
+For entities subject to NSFR requirements, available stable funding shall target 103% of required stable funding.
+Quarterly NSFR reports must be submitted to ALCO and the Board Risk Committee.
+
+CP-002.4 Contingency Funding Plan
+A written contingency funding plan must be maintained and tested annually.
+The plan must identify early warning indicators and escalation procedures.
+
+============================================================
+POLICY SECTION CP-003: BOARD GOVERNANCE AND OVERSIGHT
+============================================================
+
+CP-003.1 Board Composition
+The Board shall consist of no fewer than 10 and no more than 15 directors.
+At least one director must qualify as a financial expert under applicable regulations.
+
+CP-003.2 Board Meetings
+The Board shall meet at least monthly, with additional special meetings as needed.
+The Risk Committee shall meet quarterly to review risk metrics and emerging issues.
+
+CP-003.3 Director Training
+All directors must complete annual training on risk management and regulatory compliance.
+New directors must receive orientation within 90 days of joining the Board.
+
+CP-003.4 Oversight Responsibilities
+The Board is ultimately responsible for overseeing management's implementation of risk frameworks.
+Management must provide the Board with timely and accurate information for decision-making.
+
+============================================================
+POLICY SECTION CP-004: STRESS TESTING PROGRAM
+============================================================
+
+CP-004.1 Annual Stress Testing
+The institution shall conduct annual company-run stress tests using regulatory scenarios.
+Stress test results must inform capital planning and risk appetite decisions.
+
+CP-004.2 Model Validation
+All stress testing models must undergo independent validation every two years.
+Model limitations and assumptions must be documented and disclosed to the Board.
+
+CP-004.3 Scenario Development
+Scenarios must include baseline, adverse, and severely adverse economic conditions.
+Management may add idiosyncratic scenarios relevant to the institution's risk profile.
+
+CP-004.4 Documentation and Reporting
+Stress test documentation must be retained for a minimum of 7 years.
+Summary results must be presented to the Board and relevant regulatory committees.
+
+============================================================
+POLICY SECTION CP-005: INTERNAL CONTROLS AND COMPLIANCE
+============================================================
+
+CP-005.1 Control Framework
+Management must establish and maintain effective internal controls over financial reporting.
+The control framework must align with COSO Internal Control standards.
+
+CP-005.2 Control Assessments
+Annual assessments of control effectiveness must be conducted by Internal Audit.
+Deficiencies must be remediated within timelines established by the Audit Committee.
+
+CP-005.3 Compliance Monitoring
+The Compliance Department shall conduct periodic testing of adherence to policies.
+Violations must be reported to senior management and the Board within 5 business days.
+
+CP-005.4 Record Retention
+Compliance records must be retained for a minimum of 7 years unless otherwise specified.
+Electronic records must be backed up daily and stored securely off-site.
+
+============================================================
+POLICY SECTION CP-006: ENFORCEMENT AND DISCIPLINARY ACTIONS
+============================================================
+
+CP-006.1 Violation Response
+Alleged violations shall be investigated promptly by Compliance or Internal Audit.
+Appropriate disciplinary action shall be taken based on severity and intent.
+
+CP-006.2 Regulatory Cooperation
+The institution shall cooperate fully with regulatory examinations and inquiries.
+Designated points of contact shall coordinate all regulator communications.
+
+CP-006.3 Penalty Management
+Civil money penalties must be approved for payment by the CFO and General Counsel.
+Repeated violations by individuals may result in termination or demotion.
+
+============================================================
+POLICY SECTION CP-007: EMERGING RISKS AND INNOVATION
+============================================================
+
+CP-007.1 Emerging Risk Identification
+Management shall establish processes to identify and assess emerging risks.
+Emerging risks must be reported to the Board Risk Committee at least annually.
+
+CP-007.2 Technology and Innovation
+New products and services must undergo risk assessment before launch.
+Technology investments must consider cybersecurity, operational resilience, and compliance implications.
+
+CP-007.3 Third-Party Risk
+Third-party relationships must be governed by written agreements with clear responsibilities.
+Critical service providers must undergo due diligence and ongoing monitoring.
+"""

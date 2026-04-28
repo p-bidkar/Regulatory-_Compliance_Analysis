@@ -1,0 +1,109 @@
+"""
+Sample test regulation document for MVP testing.
+Contains baseline and new version to simulate regulatory changes.
+"""
+
+BASELINE_REGULATION = """
+SECTION 1: CAPITAL REQUIREMENTS
+
+1.1 Minimum Capital Ratio
+Financial institutions must maintain a minimum Tier 1 capital ratio of 6% of risk-weighted assets.
+This requirement applies to all federally insured depository institutions with assets exceeding $1 billion.
+
+1.2 Leverage Ratio
+The supplementary leverage ratio must not fall below 3% for advanced approaches institutions.
+Calculation includes off-balance sheet exposures as defined in Appendix A.
+
+1.3 Reporting Frequency
+Institutions must submit capital adequacy reports quarterly within 45 days of quarter end.
+Reports must be certified by the Chief Financial Officer and Chief Risk Officer.
+
+SECTION 2: LIQUIDITY STANDARDS
+
+2.1 Liquidity Coverage Ratio (LCR)
+Large banking organizations must maintain an LCR of at least 100%.
+High-quality liquid assets (HQLA) must be unencumbered and readily convertible to cash.
+
+2.2 Net Stable Funding Ratio (NSFR)
+Institutions with total consolidated assets of $100 billion or more must maintain NSFR >= 100%.
+Available stable funding must exceed required stable funding on an ongoing basis.
+
+SECTION 3: RISK MANAGEMENT
+
+3.1 Governance Requirements
+The board of directors must oversee the institution's risk management framework.
+At least one board member must have demonstrated expertise in financial risk management.
+
+3.2 Stress Testing
+Annual stress tests must be conducted using severely adverse scenarios.
+Results must be published publicly and submitted to the primary federal regulator.
+
+SECTION 4: COMPLIANCE AND ENFORCEMENT
+
+4.1 Internal Controls
+Institutions must establish internal controls reasonably designed to ensure compliance.
+Annual assessments of control effectiveness must be documented and retained for 7 years.
+
+4.2 Violations and Penalties
+Violations may result in civil money penalties up to $25,000 per day.
+Repeated violations may trigger enhanced supervision or consent orders.
+"""
+
+NEW_REGULATION = """
+SECTION 1: CAPITAL REQUIREMENTS
+
+1.1 Minimum Capital Ratio
+Financial institutions must maintain a minimum Tier 1 capital ratio of 7% of risk-weighted assets.
+This requirement applies to all federally insured depository institutions with assets exceeding $500 million.
+Institutions failing to meet this requirement must submit a capital restoration plan within 90 days.
+
+1.2 Leverage Ratio
+The supplementary leverage ratio must not fall below 4% for advanced approaches institutions.
+Calculation includes off-balance sheet exposures as defined in Appendix A, including derivatives exposures.
+
+1.3 Reporting Frequency
+Institutions must submit capital adequacy reports monthly within 30 days of month end.
+Reports must be certified by the Chief Financial Officer, Chief Risk Officer, and CEO.
+
+SECTION 2: LIQUIDITY STANDARDS
+
+2.1 Liquidity Coverage Ratio (LCR)
+Large banking organizations must maintain an LCR of at least 110%.
+High-quality liquid assets (HQLA) must be unencumbered, readily convertible to cash, and held at the parent company level.
+
+2.2 Net Stable Funding Ratio (NSFR)
+Institutions with total consolidated assets of $50 billion or more must maintain NSFR >= 105%.
+Available stable funding must exceed required stable funding on an ongoing basis with quarterly monitoring.
+
+SECTION 3: RISK MANAGEMENT
+
+3.1 Governance Requirements
+The board of directors must oversee the institution's risk management framework.
+At least two board members must have demonstrated expertise in financial risk management.
+The board must meet quarterly to review risk metrics and emerging threats.
+
+3.2 Stress Testing
+Annual stress tests must be conducted using severely adverse scenarios including climate-related risks.
+Results must be published publicly, submitted to the primary federal regulator, and shared with state regulators.
+Intermediate stress tests must be conducted semi-annually for institutions over $250 billion in assets.
+
+SECTION 4: COMPLIANCE AND ENFORCEMENT
+
+4.1 Internal Controls
+Institutions must establish internal controls reasonably designed to ensure compliance.
+Annual assessments of control effectiveness must be documented, retained for 10 years, and subject to external audit.
+
+4.2 Violations and Penalties
+Violations may result in civil money penalties up to $50,000 per day.
+Repeated violations may trigger enhanced supervision, consent orders, or personal liability for senior executives.
+
+SECTION 5: NEW - CLIMATE RISK DISCLOSURE
+
+5.1 Climate Risk Assessment
+Institutions with assets exceeding $100 billion must conduct annual climate risk assessments.
+Assessments must evaluate physical risks (flood, wildfire, extreme weather) and transition risks (policy changes, market shifts).
+
+5.2 Disclosure Requirements
+Climate risk exposure must be disclosed in annual reports starting fiscal year 2026.
+Disclosures must follow the Task Force on Climate-related Financial Disclosures (TCFD) framework.
+"""
